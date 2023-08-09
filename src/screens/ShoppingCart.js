@@ -11,8 +11,10 @@ import {
 import { useSelector } from "react-redux";
 import cart from "../data/cart";
 import CartListItem from "../components/CartListItem";
+import { selectedSubTotal } from "../store/CartSlice";
 const ShoppingCart = () => {
   const cartItem = useSelector((state) => state.cart.items);
+  const SubTotal = useSelector(selectedSubTotal);
   return (
     <>
       <SafeAreaView style={styles.AndroidSafeArea}>
@@ -23,7 +25,7 @@ const ShoppingCart = () => {
             <View style={styles.container}>
               <View style={styles.row}>
                 <Text style={styles.text}>SubTotal</Text>
-                <Text style={styles.text}>410,00 US$</Text>
+                <Text style={styles.text}>{SubTotal}</Text>
               </View>
               <View style={styles.row}>
                 <Text style={styles.text}>Delivery</Text>
