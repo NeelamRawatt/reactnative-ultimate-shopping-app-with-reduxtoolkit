@@ -39,3 +39,9 @@ export const CartSlice = createSlice({
   },
 });
 export const selectedNumberOfItems = (state) => state.cart.items.length;
+//having an array of item we need one value from it , using reduce
+export const selectedSubTotal = (state) =>
+  state.cart.items.reduce(
+    (sum, cartItem) => sum + cartItem.product.price * cartItem.quantity,
+    0
+  );
