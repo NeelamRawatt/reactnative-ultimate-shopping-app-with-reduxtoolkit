@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   items: [],
   deliveryFee: 15,
@@ -45,3 +45,18 @@ export const selectedSubTotal = (state) =>
     (sum, cartItem) => sum + cartItem.product.price * cartItem.quantity,
     0
   );
+const cartSelector = (state) => state.cart;
+
+export const selectDeliveryPrice = createSelector(
+  cartSelector,
+  //dependent on this selector and based on this we got subtotal value .
+  //deliveryfee will be multiple of subtotal
+  selectedSubTotal,
+  (cart, subtotal) => (subtotal > cart.freeDeliveryFrom ? 0 : cart.deliveryFee)
+);
+
+export const selectTotal = createSelector(
+  selectedSubTotal,
+  selectDeliveryPrice,
+  (subtotal, delivery) => subtotal + delivery
+);

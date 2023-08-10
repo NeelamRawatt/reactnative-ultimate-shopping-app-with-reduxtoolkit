@@ -11,10 +11,14 @@ import {
 import { useSelector } from "react-redux";
 import cart from "../data/cart";
 import CartListItem from "../components/CartListItem";
+import { selectDeliveryPrice } from "../store/CartSlice";
 import { selectedSubTotal } from "../store/CartSlice";
+import { selectTotal } from "../store/CartSlice";
 const ShoppingCart = () => {
   const cartItem = useSelector((state) => state.cart.items);
   const SubTotal = useSelector(selectedSubTotal);
+  const deliveryFee = useSelector(selectDeliveryPrice);
+  const total = useSelector(selectTotal);
   return (
     <>
       <SafeAreaView style={styles.AndroidSafeArea}>
@@ -29,11 +33,11 @@ const ShoppingCart = () => {
               </View>
               <View style={styles.row}>
                 <Text style={styles.text}>Delivery</Text>
-                <Text style={styles.text}>10,00 US$</Text>
+                <Text style={styles.text}>{deliveryFee}</Text>
               </View>
               <View style={styles.row}>
                 <Text style={styles.textBold}>Total</Text>
-                <Text style={styles.textBold}>420,00 US$</Text>
+                <Text style={styles.textBold}>{total}</Text>
               </View>
             </View>
           )}
